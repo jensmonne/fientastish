@@ -46,7 +46,6 @@ public class GameManager : MonoBehaviour
     {
         CurrentRoundCount++;
         GameObject map = Instantiate(maps[Random.Range(0, maps.Length)], Vector3.zero, Quaternion.identity);
-        //map.SetActive(true);
         for (int i = 0; i < 4; i++)
         {
             Instantiate(playerPrefab[i], map.transform.Find("PlayerSpawn" + i).position, Quaternion.identity);
