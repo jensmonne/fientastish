@@ -147,7 +147,8 @@ MonoBehaviour:
   groundCheckDistance: 0.2
   groundLayer:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 8
+  CharachterSelectCursor: {fileID: 3432680009695439774, guid: 3debe2ed1441748429e412a6be86806d, type: 3}
 --- !u!50 &3692393311868434796
 Rigidbody2D:
   serializedVersion: 5
@@ -310,6 +311,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 11949f6c-4aee-4718-ae61-a492494ea611
     m_ActionName: 'Player/Shoot[/Keyboard/r,/Gamepad/rightTrigger]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8150833f-1e10-4573-8aa8-3b0fe0bc4fc2
+    m_ActionName: UI/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

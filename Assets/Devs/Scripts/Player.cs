@@ -1,8 +1,7 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class SimplePlayerController : MonoBehaviour
+public class Player : MonoBehaviour
 {
     [SerializeField] float speed = 5f;
     [SerializeField] float jumpForce = 5f;
@@ -14,16 +13,31 @@ public class SimplePlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 moveInput;
     private bool jumpPressed;
+    [SerializeField] private GameObject CharachterSelectCursor;
+    private GameObject CharachterMoveCursor;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        CharachterMoveCursor = Instantiate(CharachterSelectCursor, Vector2.zero, Quaternion.identity, transform);
+
     }
 
     private void FixedUpdate()
     {
-        Vector2 move = new Vector2(moveInput.x, 0f);
-        rb.linearVelocity = new Vector2(move.x * speed, rb.linearVelocity.y);
+        if (GameManager.Instance.isRoundActive)
+        {
+            Vector2 move = new Vector2(moveInput.x, 0f);
+            rb.linearVelocity = new Vector2(move.x * speed, rb.linearVelocity.y);
+        }
+
+        if (!GameManager.Instance.isRoundActive)
+        {
+            Vector2 move = new Vector2(moveInput.x, moveInput.y);
+            CharachterMoveCursor.transform.Translate(move * (speed * 1.5f) * Time.fixedDeltaTime);
+        }
+
+
 
         // Jump
         if (jumpPressed && IsGrounded())

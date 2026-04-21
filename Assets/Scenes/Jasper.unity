@@ -517,10 +517,6 @@ MonoBehaviour:
   - {fileID: 5958070318249092352, guid: ca2cd6b1e3c40364eabb0808788aab87, type: 3}
   - {fileID: 5958070318249092352, guid: ca2cd6b1e3c40364eabb0808788aab87, type: 3}
   - {fileID: 5958070318249092352, guid: ca2cd6b1e3c40364eabb0808788aab87, type: 3}
-  itemSpawnPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!4 &1131645527
 Transform:
   m_ObjectHideFlags: 0

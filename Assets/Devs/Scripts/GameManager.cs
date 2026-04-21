@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float RoundDuration = 180f;
     [SerializeField] private float ItemSpawnInterval = 5f;
     [SerializeField] private TextMeshProUGUI CountdownText;
-    private bool isRoundActive = false;
+    public bool isRoundActive = false;
 
     [Header("Map Settings")]
     [SerializeField] private GameObject[] playerPrefab;
@@ -32,10 +32,6 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start()
-    {
-        StartGame();
-    }
     public void StartGame()
     {
         CurrentRoundCount = 0;
