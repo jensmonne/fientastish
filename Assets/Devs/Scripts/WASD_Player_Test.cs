@@ -79,5 +79,16 @@ public class SimplePlayerController : MonoBehaviour
 
             gunAimer.EnableGun();
         }
+
+        if (other.CompareTag("Hamer"))
+        {
+            Debug.Log("Player picked up a hammer!");
+
+            Destroy(other.gameObject);
+
+            Hamer_Swinger hammerSwinger = gameObject.GetComponent<Hamer_Swinger>();
+
+            hammerSwinger.EnableHammer();
+        }
     }
 }
