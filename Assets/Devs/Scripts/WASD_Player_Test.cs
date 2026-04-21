@@ -1,14 +1,15 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class SimplePlayerController : MonoBehaviour
 {
-    public float speed = 5f;
-    public float jumpForce = 5f;
+    [SerializeField] float speed = 5f;
+    [SerializeField] float jumpForce = 5f;
 
-    public Transform groundCheck;
-    public float groundCheckDistance = 0.2f;
-    public LayerMask groundLayer = ~0;
+    [SerializeField] Transform groundCheck;
+    [SerializeField] float groundCheckDistance = 0.2f;
+    [SerializeField] LayerMask groundLayer = ~0;
 
     private Rigidbody2D rb;
     private Vector2 moveInput;
@@ -63,5 +64,20 @@ public class SimplePlayerController : MonoBehaviour
 
         RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, distance, groundLayer);
         return hit.collider != null;
+    }
+
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Gun"))
+        {
+            Debug.Log("Player picked up a gun!");
+
+            Destroy(other.gameObject);
+
+            Gun_Aimer gunAimer = gameObject.GetComponent<Gun_Aimer>();
+
+            gunAimer.EnableGun();
+        }
     }
 }
