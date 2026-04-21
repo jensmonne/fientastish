@@ -17,6 +17,7 @@ public class Gun_Aimer : MonoBehaviour
     private GameObject currentGun;
     private bool hasGun = false;
     private Transform BulletSpawnPoint;
+    private ParticleSystem Effect;
 
     void Start()
     {
@@ -50,6 +51,8 @@ public class Gun_Aimer : MonoBehaviour
         BulletCountText.gameObject.SetActive(true);
         UpdateBulletCountText();
 
+        Effect = currentGun.GetComponentInChildren<ParticleSystem>();
+
         hasGun = true;
     }
 
@@ -80,6 +83,8 @@ public class Gun_Aimer : MonoBehaviour
 
             currentBullets--;
             UpdateBulletCountText();
+
+            Effect.Play();
         }
     }
 
