@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -6,15 +7,15 @@ public class GameManager : MonoBehaviour
     [Header("Round Settings")]
     [SerializeField] private int MaxRoundCount = 3;
     [SerializeField] private int CurrentRoundCount = 0;
-    [SerializeField] private float RoundDuration = 60f;
+    [SerializeField] private float RoundDuration = 180f;
     [SerializeField] private float ItemSpawnInterval = 5f;
+    [SerializeField] private TextMeshProUGUI CountdownText;
+    private bool isRoundActive = false;
 
     [Header("Map Settings")]
+    [SerializeField] private GameObject[] playerPrefab;
     [SerializeField] private GameObject[] maps;
     [SerializeField] private GameObject[] items;
-    [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private Transform[] playerSpawnPoints;
-    [SerializeField] private GameObject[] itemSpawnPoints;
 
 
     public static GameManager Instance { get; private set; }
@@ -31,33 +32,61 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start()
+    {
+        StartGame();
+    }
     public void StartGame()
     {
         CurrentRoundCount = 0;
         StartRound();
-        // Additional logic to start the game can be added here
     }
 
     private void StartRound()
     {
         CurrentRoundCount++;
-        //Pick random map or choose map
-        //SpawnPlayers
-        //Start item spawn Cycle
-        StartItemSpawnCycle();
-        //Start round timer
-        //Countdown for round to start
+        GameObject map = Instantiate(maps[Random.Range(0, maps.Length)], Vector3.zero, Quaternion.identity);
+        //map.SetActive(true);
+        for (int i = 0; i < 4; i++)
+        {
+            Instantiate(playerPrefab[i], map.transform.Find("PlayerSpawn" + i).position, Quaternion.identity);
+        }
+        StartCoroutine(StartCountdown());
+        isRoundActive = true;
+        StartCoroutine(SpawnItemDelay());
     }
 
-    private void StartItemSpawnCycle()
+    private IEnumerator StartCountdown()
     {
-        StartCoroutine(SpawnItemDelay());
-        // Logic to spawn items at intervals can be added here
+        CountdownText.text = "3";
+        yield return new WaitForSeconds(1f);
+        CountdownText.text = "2";
+        yield return new WaitForSeconds(1f);
+        CountdownText.text = "1";
+        yield return new WaitForSeconds(1f);
+        CountdownText.text = null;
     }
 
     private IEnumerator SpawnItemDelay()
     {
-        yield return new WaitForSeconds(ItemSpawnInterval);
+        while (isRoundActive)
+        {
+            Instantiate(items[Random.Range(0, items.Length)], new Vector2(Random.Range(-9f, 9f), 6f), Quaternion.identity);
+            yield return new WaitForSeconds(ItemSpawnInterval);
+        }
+
+    }
+    private void Update()
+    {
+        if (isRoundActive)
+        {
+            RoundDuration -= Time.deltaTime;
+            if (RoundDuration <= 0)
+            {
+                isRoundActive = false;
+                EndRound();
+            }
+        }
     }
 
     public void EndRound()
@@ -69,15 +98,16 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            isRoundActive = false;
+            //Show round results, player scores, etc.
             StartRound();
-            // Logic to start the next round can be added here
         }
     }
 
     public void EndGame()
     {
-        //Scene switch to result scene
-        // Additional logic to end the game can be added here
+        isRoundActive = false;
+        //Start next round or end game screen
         Debug.Log("Game is done!");
     }
 }
