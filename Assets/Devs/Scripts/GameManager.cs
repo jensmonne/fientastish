@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] maps;
     [SerializeField] private GameObject[] items;
 
+    public Dictionary<int, int> playerScores = new();
 
     public static GameManager Instance { get; private set; }
 
@@ -71,6 +73,7 @@ public class GameManager : MonoBehaviour
         }
 
     }
+    
     private void Update()
     {
         if (isRoundActive)
@@ -106,5 +109,3 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game is done!");
     }
 }
-
-
