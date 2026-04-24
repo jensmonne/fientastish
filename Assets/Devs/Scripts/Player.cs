@@ -21,7 +21,6 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        CharachterMoveCursor = Instantiate(CharachterSelectCursor, Vector2.zero, Quaternion.identity, transform);
 
     }
 
@@ -41,15 +40,14 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        /*if (GameManager.Instance.isRoundActive)
-        {
-            Vector2 move = new Vector2(moveInput.x, 0f);
-            rb.linearVelocity = new Vector2(move.x * speed, rb.linearVelocity.y);
-        }*/
+
+        Vector2 move = new Vector2(moveInput.x, 0f);
+        rb.linearVelocity = new Vector2(move.x * speed, rb.linearVelocity.y);
 
 
-        Vector2 move = new Vector2(moveInput.x, moveInput.y);
-        CharachterMoveCursor.transform.Translate(move * (speed * 1.5f) * Time.fixedDeltaTime);
+
+        //Vector2 move = new Vector2(moveInput.x, moveInput.y);
+        //CharachterMoveCursor.transform.Translate(move * (speed * 1.5f) * Time.fixedDeltaTime);
 
 
 
