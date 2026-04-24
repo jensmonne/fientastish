@@ -41,28 +41,27 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (GameManager.Instance.isRoundActive)
+        /*if (GameManager.Instance.isRoundActive)
         {
             Vector2 move = new Vector2(moveInput.x, 0f);
             rb.linearVelocity = new Vector2(move.x * speed, rb.linearVelocity.y);
-        }
-
-        if (!GameManager.Instance.isRoundActive)
-        {
-            Vector2 move = new Vector2(moveInput.x, moveInput.y);
-            CharachterMoveCursor.transform.Translate(move * (speed * 1.5f) * Time.fixedDeltaTime);
-        }
+        }*/
 
 
-        if (jumpPressed && IsGrounded() && GameManager.Instance.isRoundActive)
+        Vector2 move = new Vector2(moveInput.x, moveInput.y);
+        CharachterMoveCursor.transform.Translate(move * (speed * 1.5f) * Time.fixedDeltaTime);
+
+
+
+        if (jumpPressed && IsGrounded())
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
-        else if (!GameManager.Instance.isRoundActive && jumpPressed)
-        {
-            SelectCharachter();
-        }
+        //else if (!GameManager.Instance.isRoundActive && jumpPressed)
+        //{
+        //    SelectCharachter();
+        //}
 
         jumpPressed = false;
     }
